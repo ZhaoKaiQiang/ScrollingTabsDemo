@@ -28,18 +28,20 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 
 		viewPager = (ViewPager) findViewById(R.id.pager);
-		// 设置适配器
-		pagerAdapter = new FragsAdapter(getSupportFragmentManager());
-		viewPager.setAdapter(pagerAdapter);
 
 		// 设置缓存fragment的数量
 		viewPager.setOffscreenPageLimit(2);
 		viewPager.setCurrentItem(0);
 		viewPager.setPageMargin(4);
 
-		scrollingTabsAdapter = new ScrollingTabsAdapter(this);
+		// 设置适配器
+		pagerAdapter = new FragsAdapter(getSupportFragmentManager());
+		viewPager.setAdapter(pagerAdapter);
+		
+		
 		// 设置滑动标签的适配器和宿主ViewPager
 		scrollingTabs = (ScrollingTabsView) findViewById(R.id.scrolling_tabs);
+		scrollingTabsAdapter = new ScrollingTabsAdapter(this);
 		scrollingTabs.setAdapter(scrollingTabsAdapter);
 		scrollingTabs.setViewPager(viewPager);
 
@@ -59,7 +61,7 @@ public class MainActivity extends FragmentActivity {
 			super(fm);
 
 			fragments = new ArrayList<Fragment>();
-			for (int i = 0; i < scrollingTabsAdapter.mTitles.length; i++) {
+			for (int i = 0; i < ScrollingTabsAdapter.mTitles.length; i++) {
 				fragments.add(new MyFragment(i));
 			}
 
@@ -82,10 +84,10 @@ public class MainActivity extends FragmentActivity {
 	 * @author zhaokaiqiang
 	 * 
 	 */
-	private class ScrollingTabsAdapter implements TabsAdapter {
+	private static class ScrollingTabsAdapter implements TabsAdapter {
 
 		private Activity mContext;
-		public String[] mTitles = { "首页", "推荐", "最新", "娱乐", "设置" };
+		public static String[] mTitles = { "首页", "推荐", "最新", "娱乐", "设置" };
 
 		public ScrollingTabsAdapter(Activity ctx) {
 			this.mContext = ctx;
